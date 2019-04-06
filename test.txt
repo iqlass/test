@@ -1,0 +1,43 @@
+ $model =DB::table('tbl_users')
+              ->get();
+         return  $data =  Datatables($model)		 
+              ->rawColumns(['delete' => 'delete','action' => 'action'])
+ ->addColumn('action', function ($id) {
+                return '<a href="EDIT/' . $id->id . '" class="btn btn-primary">Edit</a>
+                        <a href="DELETE/' . $id->id . '" class="btn btn-primary btn-delete">Delete</a>
+                  '; })
+			 
+              ->make(true);
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  
+			  $(function() {
+               $('#example').DataTable({
+               processing: true,
+               serverSide: true,
+               ajax: '{{ url('index') }}',
+               columns: [
+                        { data: 'id', name: 'id' },
+                        { data: 'name', name: 'name' },
+                        { data: 'email', name: 'email' },
+						  { data: 'password', name: 'password' },
+						{data: 'action', name: 'action', orderable: false, searchable: false}	
+                     ]
+            });
+         });
+		 
+		 
+		 
+		 
+	$destinationPath = 'image';
+            $files = $request->image;
+            $file_name = $files->getClientOriginalName();
+            $files->move($destinationPath, $file_name);
